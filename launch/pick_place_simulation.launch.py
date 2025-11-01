@@ -69,13 +69,8 @@ def generate_launch_description():
         output='screen'
     )
     
-    # Controller manager
-    controller_manager = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        parameters=[robot_description, controllers_file, {'use_sim_time': use_sim_time}],
-        output='screen'
-    )
+    # Controller manager is handled by gazebo_ros2_control plugin
+    # No separate controller_manager node needed
     
     # Load controllers
     load_joint_state_broadcaster = ExecuteProcess(
@@ -111,7 +106,6 @@ def generate_launch_description():
         robot_state_publisher_node,
         joint_state_publisher_node,
         spawn_entity,
-        controller_manager,
         load_joint_state_broadcaster,
         load_joint_trajectory_controller,
         load_gripper_controller,

@@ -13,8 +13,6 @@ find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 find_package(control_msgs REQUIRED)
-find_package(moveit_core REQUIRED)
-find_package(moveit_ros_planning_interface REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
@@ -27,8 +25,6 @@ ament_target_dependencies(pick_place_controller
   sensor_msgs
   trajectory_msgs
   control_msgs
-  moveit_core
-  moveit_ros_planning_interface
   tf2
   tf2_ros
 )
