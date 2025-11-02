@@ -1,9 +1,10 @@
-# Pick and Place Robot Simulation
+# Pick and Place Robot Simulation 🤖
 
-A complete ROS 2 simulation of a 3-DOF robotic arm with gripper performing autonomous pick and place operations in Gazebo.
+A complete ROS 2 simulation of a 3-DOF robotic arm with gripper performing autonomous pick and place operations in Gazebo. **Now implemented in Python for easier understanding and modification!**
 
 ## Features
 
+- **🐍 Python Implementation**: Easy to read, modify, and extend
 - **3-DOF Robotic Arm**: Base rotation + 2 arm joints with realistic joint limits
 - **2-Finger Gripper**: Prismatic joints for object grasping
 - **Gazebo Simulation**: Complete environment with table, objects, and target area
@@ -33,6 +34,9 @@ sudo apt install ros-humble-ros2-control \
                  ros-humble-ros2-controllers \
                  ros-humble-gazebo-ros2-control \
                  ros-humble-controller-manager
+
+# Python ROS 2 packages
+sudo apt install ros-humble-rclpy
 
 # Additional utilities
 sudo apt install ros-humble-rviz2
@@ -105,7 +109,7 @@ Gripper Fingers (Gray)
 ```
 
 ### 🔄 Autonomous Pick and Place Sequence
-The robot executes a 10-step sequence every 2 seconds:
+The robot executes a 10-step sequence every 3 seconds:
 
 | Step | Action | Description |
 |------|--------|-------------|
@@ -121,6 +125,7 @@ The robot executes a 10-step sequence every 2 seconds:
 | 10 | **Return** | Go back to home position [0, 0, 0] |
 
 ### ⚙️ Control System
+- **🐍 Python Controller**: Main logic implemented in Python for easy modification
 - **ros2_control**: Hardware abstraction layer
 - **Joint Trajectory Controller**: Smooth arm movement with position control
 - **Forward Command Controller**: Direct gripper position control
@@ -128,17 +133,28 @@ The robot executes a 10-step sequence every 2 seconds:
 
 ## Customization
 
-### Modify Pick and Place Positions
-Edit the joint positions in `src/pick_place_controller.cpp`:
-```cpp
-// Example: Change pick position
-move_to_joint_positions({0.4, -0.3, 0.5}); // [joint1, joint2, joint3]
+### 🐍 Modify Pick and Place Positions (Python)
+Edit the sequence in `src/pick_place_controller.py`:
+```python
+# Example: Modify the sequence
+self.sequence = [
+    {'name': 'Home Position', 'joints': [0.0, 0.0, 0.0], 'gripper': False},
+    {'name': 'Custom Position', 'joints': [0.5, -0.2, 0.4], 'gripper': False},
+    # Add more steps...
+]
 ```
 
-### Add More Objects
+### 🎯 Change Timing
+Modify the timer interval:
+```python
+# In __init__ method, change from 3.0 to desired seconds
+self.timer = self.create_timer(2.0, self.execute_pick_place_sequence)
+```
+
+### 📦 Add More Objects
 Edit `worlds/pick_place_world.world` to add more objects to pick and place.
 
-### Adjust Robot Dimensions
+### 🔧 Adjust Robot Dimensions
 Modify `urdf/pick_place_robot.urdf.xacro` to change link lengths, joint limits, etc.
 
 ## Troubleshooting
